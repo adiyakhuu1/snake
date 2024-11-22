@@ -9,9 +9,9 @@ let tails = [
 ];
 
 let config = {
-  size: 20,
-  width: 20,
-  height: 20,
+  size: 15,
+  width: 45,
+  height: 30,
 };
 let nextDirection = direction;
 document.addEventListener("keydown", (e) => {
@@ -65,7 +65,7 @@ function start() {
   // headLeft = 12;
   // direction = "up";
   if (!intervalId) {
-    intervalId = setInterval(gameLoop, 300);
+    intervalId = setInterval(gameLoop, 100);
   }
 }
 function pause() {
@@ -84,7 +84,7 @@ function restartGame() {
 }
 function goUp() {
   headTop = headTop - 1;
-  if (headTop < -1) {
+  if (headTop <= 0) {
     alert("ur dead");
     restartGame();
   }
@@ -93,7 +93,7 @@ function goUp() {
 
 function goDown() {
   headTop = headTop + 1;
-  if (headTop - 1 >= config.height) {
+  if (headTop > config.height) {
     alert("ur dead");
     restartGame();
   }
@@ -101,7 +101,7 @@ function goDown() {
 }
 function goRight() {
   headLeft = headLeft + 1;
-  if (headLeft - 1 >= config.width) {
+  if (headLeft >= config.width) {
     alert("ur dead");
     restartGame();
   }
