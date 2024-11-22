@@ -1,0 +1,16 @@
+#board {
+  background-color: tomato;
+  /* width: 300px;
+  height: 300px; */
+  margin: 50px auto;
+  position: relative;
+}
+#snake {
+  background-color: aquamarine;
+  position: absolute;
+  border-radius: 50px;
+  /* top: 100;
+  left: ; */
+  /* width: 15px;
+  height: 15px; */
+}

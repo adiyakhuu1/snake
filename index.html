@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .board {
+        margin: 30px auto;
+        background-color: burlywood;
+        position: relative;
+      }
+      .snake {
+        position: absolute;
+        background-color: blueviolet;
+        border-radius: 10px;
+      }
+      .food {
+        position: absolute;
+        background-color: red;
+        /* border-radius: 10px; */
+      }
+    </style>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <button onclick="start();">Start</button>
+      <button onclick="pause();">Pause</button>
+      <button onclick="restartGame();">Restart</button>
+    </div>
+    <div class="board" id="board">
+      <!-- GENERATED -->
+    </div>
+    <div style="text-align: center">
+      <button onclick="changeDirection('up');">Up</button>
+      <button onclick="changeDirection('down');">Down</button>
+      <button onclick="changeDirection('left');">Left</button>
+      <button onclick="changeDirection('right');">Right</button>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
