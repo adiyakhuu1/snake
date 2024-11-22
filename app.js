@@ -13,6 +13,35 @@ let config = {
   width: 20,
   height: 20,
 };
+let nextDirection = direction;
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowUp") {
+    if (direction !== "down") {
+      nextDirection = "up";
+    }
+  } else if (e.key === "ArrowDown") {
+    if (direction !== "up") {
+      nextDirection = "down";
+    }
+  } else if (e.key === "ArrowRight") {
+    if (direction !== "left") {
+      nextDirection = "right";
+    }
+  } else if (e.key === "ArrowLeft") {
+    if (direction !== "right") {
+      nextDirection = "left";
+    }
+  }
+  // console.log(e);
+  if (e.code === "Space") {
+    if (intervalId) {
+      pause();
+    } else {
+      start();
+    }
+  }
+  console.log(e);
+});
 
 const boardEl = document.getElementById("board");
 
@@ -23,11 +52,11 @@ boardEl.style.height = config.height * config.size + "px";
 function changeDirection(newDirection) {
   if (direction === "up" || direction === "down") {
     if (newDirection === "right" || newDirection === "left") {
-      direction = newDirection;
+      nextDirection = newDirection;
     }
   } else if (direction === "right" || direction === "left") {
     if (newDirection === "up" || newDirection === "down") {
-      direction = newDirection;
+      nextDirection = newDirection;
     }
   }
 }
@@ -55,7 +84,7 @@ function restartGame() {
 }
 function goUp() {
   headTop = headTop - 1;
-  if (headTop < 0) {
+  if (headTop < -1) {
     alert("ur dead");
     restartGame();
   }
@@ -64,7 +93,7 @@ function goUp() {
 
 function goDown() {
   headTop = headTop + 1;
-  if (headTop >= config.height) {
+  if (headTop - 1 >= config.height) {
     alert("ur dead");
     restartGame();
   }
@@ -72,7 +101,7 @@ function goDown() {
 }
 function goRight() {
   headLeft = headLeft + 1;
-  if (headLeft >= config.width) {
+  if (headLeft - 1 >= config.width) {
     alert("ur dead");
     restartGame();
   }
@@ -81,7 +110,7 @@ function goRight() {
 
 function goLeft() {
   headLeft = headLeft - 1;
-  if (headLeft < -1) {
+  if (headLeft < 0) {
     // headLeft = config.width - 1;
     alert("ur dead");
     restartGame();
@@ -108,7 +137,7 @@ function gameLoop() {
     generateFoods();
   }
 
-  switch (direction) {
+  switch (nextDirection) {
     case "up":
       goUp();
       break;
@@ -122,6 +151,8 @@ function gameLoop() {
       goLeft();
       break;
   }
+
+  direction = nextDirection;
 }
 function generateFoods() {
   foodX = Math.floor(Math.random() * config.width);
@@ -148,32 +179,4 @@ function render() {
   boardEl.innerHTML = snakeHtml;
 }
 
-document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowUp") {
-    if (direction !== "down") {
-      direction = "up";
-    }
-  } else if (e.key === "ArrowDown") {
-    if (direction !== "up") {
-      direction = "down";
-    }
-  } else if (e.key === "ArrowRight") {
-    if (direction !== "left") {
-      direction = "right";
-    }
-  } else if (e.key === "ArrowLeft") {
-    if (direction !== "right") {
-      direction = "left";
-    }
-  }
-
-  // console.log(e);
-  if (e.code === "Space") {
-    if (intervalId) {
-      pause();
-    } else {
-      start();
-    }
-  }
-});
 // render();
