@@ -1,7 +1,7 @@
 let headTop = 5;
 let headLeft = 5;
 let foodY, foodX;
-let direction = "up";
+let direction = "right";
 let intervalId = null;
 let tails = [
   { x: 5, y: 5 },
@@ -76,50 +76,41 @@ function restartGame() {
   generateFoods();
   headTop = 5;
   headLeft = 5;
-  direction = "up";
+  direction = "right";
   tails = [
     { x: 5, y: 5 },
     { x: 5, y: 6 },
   ];
+  render();
 }
-function goUp() {
-  headTop = headTop - 1;
-  if (headTop <= 0) {
+function moveSnake() {
+  switch (nextDirection) {
+    case "up":
+      headTop--;
+      break;
+    case "down":
+      headTop++;
+      break;
+    case "left":
+      headLeft--;
+      break;
+    case "right":
+      headLeft++;
+      break;
+  }
+  if (
+    headTop < 0 ||
+    headTop >= config.height ||
+    headLeft < 0 ||
+    headLeft >= config.width
+  ) {
     alert("ur dead");
     restartGame();
   }
-  render();
-}
-
-function goDown() {
-  headTop = headTop + 1;
-  if (headTop > config.height) {
-    alert("ur dead");
-    restartGame();
-  }
-  render();
-}
-function goRight() {
-  headLeft = headLeft + 1;
-  if (headLeft >= config.width) {
-    alert("ur dead");
-    restartGame();
-  }
-  render();
-}
-
-function goLeft() {
-  headLeft = headLeft - 1;
-  if (headLeft < 0) {
-    // headLeft = config.width - 1;
-    alert("ur dead");
-    restartGame();
-  }
-  render();
 }
 
 function gameLoop() {
-  // render();
+  moveSnake();
 
   for (let i = 0; i < tails.length; i++) {
     if (headTop === tails[i].y && headLeft === tails[i].x) {
@@ -137,22 +128,23 @@ function gameLoop() {
     generateFoods();
   }
 
-  switch (nextDirection) {
-    case "up":
-      goUp();
-      break;
-    case "right":
-      goRight();
-      break;
-    case "down":
-      goDown();
-      break;
-    case "left":
-      goLeft();
-      break;
-  }
+  // switch (nextDirection) {
+  //   case "up":
+  //     goUp();
+  //     break;
+  //   case "right":
+  //     goRight();
+  //     break;
+  //   case "down":
+  //     goDown();
+  //     break;
+  //   case "left":
+  //     goLeft();
+  //     break;
+  // }
 
   direction = nextDirection;
+  render();
 }
 function generateFoods() {
   foodX = Math.floor(Math.random() * config.width);
